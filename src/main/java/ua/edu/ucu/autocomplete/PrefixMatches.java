@@ -29,7 +29,6 @@ public class PrefixMatches {
         for (String string : strings) {
             String[] s = string.split("\\s+");
             for (String str : s) {
-
                 if (!trie.contains(str))
                     trie.add(new Tuple(str, str.length()));
             }
@@ -39,6 +38,7 @@ public class PrefixMatches {
     }
 
     public boolean contains(String word) {
+        if (word == null) throw new IllegalArgumentException();
         return trie.contains(word);
     }
 
@@ -47,10 +47,14 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
+        checkPref(pref);
+
         return trie.wordsWithPrefix(pref);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
+        checkPref(pref);
+
         ArrayList<String> words = new ArrayList<String>();
         ArrayList<String> res = new ArrayList<String>();
         int i = 0;
@@ -75,5 +79,11 @@ public class PrefixMatches {
 
     public int size() {
         return trie.size();
+    }
+
+    private void checkPref(String pref) {
+        if (pref == null || pref.length() < 2) {
+            throw new IllegalArgumentException();
+        }
     }
 }

@@ -21,16 +21,19 @@ public class PrefixMatchesITTest {
         pm.load("abc", "abce", "abcd", "abcde", "abcdef");
     }
 
+
+    @Test
+    public void testContains() {
+        assertTrue(pm.contains("abc"));
+    }
+
     @Test
     public void testWordsWithPrefix_String() {
         String pref = "ab";
 
         Iterable<String> result = pm.wordsWithPrefix(pref);
 
-        for (String string : result) {
-            System.out.println(string);
-        }
-
+        
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
 
         assertThat(result, containsInAnyOrder(expResult));
@@ -47,5 +50,31 @@ public class PrefixMatchesITTest {
 
         assertThat(result, containsInAnyOrder(expResult));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWordsWithPrefix_String_wrong_arg() {
+        Iterable<String> result = pm.wordsWithPrefix("a");
+    }
+
+    @Test
+    public void testSize() {
+        int startSize = pm.size();
+
+        pm.load("zab", "zabd zabe");
+
+        assertEquals(startSize + 3, pm.size());
+
+        pm.delete("zab");
+
+        assertEquals(startSize + 2, pm.size());
+    }
+
+    @Test
+    public void testDelete() {
+        pm.delete("abcd");
+
+        assertFalse(pm.contains("abcd"));
+    }
+   
 
 }

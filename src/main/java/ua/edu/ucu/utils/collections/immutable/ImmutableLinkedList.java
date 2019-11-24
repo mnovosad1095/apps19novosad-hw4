@@ -75,6 +75,8 @@ public class ImmutableLinkedList implements ImmutableList {
             throw new IndexOutOfBoundsException();
         }
 
+        if (((Integer)size).equals(0)) return null;
+
         int i = 0;
         Node currNode = head;
 

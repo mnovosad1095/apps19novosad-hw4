@@ -1,7 +1,5 @@
 package ua.edu.ucu.tries;
 
-import java.util.Arrays;
-
 import ua.edu.ucu.utils.collections.Queue;
 
 public class RWayTrie implements Trie {
@@ -16,6 +14,7 @@ public class RWayTrie implements Trie {
 
     @Override
     public void add(Tuple t) {
+        if (contains(t.getTerm())) size--;
         root = put(root, t, 0);
         size++;
     }
@@ -51,7 +50,8 @@ public class RWayTrie implements Trie {
 
     @Override
     public boolean contains(String word) {
-        return get(word) != null;
+        Node r = get(word);
+        return r != null && r.value != null;
     }
 
     @Override
@@ -93,14 +93,7 @@ public class RWayTrie implements Trie {
     public Iterable<String> wordsWithPrefix(String s) {
         Queue q = new Queue();
         collect(get(root, s, 0), s, q);
-        String[] words = new String[q.size()];
-        Object[] q_els = q.getElements();
-
-        for (int i = 0; i < q.size(); i++) {
-            words[i] = (String) q_els[i];
-        }
-
-        return Arrays.asList(words);
+        return q;
     }
 
     private void collect(Node x, String s, Queue q) {
