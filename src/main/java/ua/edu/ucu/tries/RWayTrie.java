@@ -4,12 +4,13 @@ import ua.edu.ucu.utils.collections.Queue;
 
 public class RWayTrie implements Trie {
 
+    private static final int R = 256;
     private Node root;
     private int size;
 
     private static class Node {
         private Tuple value;
-        private Node[] next = new Node[256];
+        private Node[] next = new Node[R];
     }
 
     @Override
@@ -76,7 +77,7 @@ public class RWayTrie implements Trie {
         if (x.value != null)
             return x;
 
-        for (char c = 97; c < 123; c++) {
+        for (char c = 0; c < R; c++) {
             if (x.next[c] != null)
                 return x;
         }
@@ -101,7 +102,7 @@ public class RWayTrie implements Trie {
             return;
         if (x.value != null)
             q.enqueue(s);
-        for (char c = 97; c < 123; c++)
+        for (char c = 0; c < R; c++)
             collect(x.next[c], s + c, q);
     }
 
