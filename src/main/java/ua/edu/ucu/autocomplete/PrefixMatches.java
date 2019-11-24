@@ -25,12 +25,13 @@ public class PrefixMatches {
 
     public int load(String... strings) {
         int startSize = trie.size();
-        
+
         for (String string : strings) {
             String[] s = string.split("\\s+");
             for (String str : s) {
 
-                if (!trie.contains(str)) trie.add(new Tuple(str, str.length()));
+                if (!trie.contains(str))
+                    trie.add(new Tuple(str, str.length()));
             }
         }
 
@@ -54,24 +55,22 @@ public class PrefixMatches {
         ArrayList<String> res = new ArrayList<String>();
         int i = 0;
         String currWord;
-        String newWord; 
+        String newWord;
 
         for (String string : wordsWithPrefix(pref)) {
             words.add(string);
         }
         Collections.sort(words, new MyComparator());
 
-        
         while (k != 0) {
             currWord = words.get(i);
             res.add(currWord);
             newWord = words.get(i + 1);
-            if (newWord.length() > currWord.length()){ k--;};
+            if (newWord.length() > currWord.length()) k--;
             i++;
         }
 
         return res;
-
     }
 
     public int size() {
