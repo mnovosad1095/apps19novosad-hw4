@@ -22,7 +22,6 @@ public class RWayTrie implements Trie {
 
     private Node put(Node node, Tuple t, int d) {
         if (node == null) {node = new Node();}
-        System.out.println(t.term +" "+ d);
         if (t.getTerm().length() == d){
             node.value = t;
             return node;
