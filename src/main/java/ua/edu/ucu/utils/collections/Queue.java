@@ -1,19 +1,15 @@
 package ua.edu.ucu.utils.collections;
 
-import java.util.Iterator;
 
-import ua.edu.ucu.tries.TrieIterator;
 import ua.edu.ucu.utils.collections.immutable.ImmutableLinkedList;
 
-public class Queue implements Iterable<String> {
+public class Queue {
     private int size;
     private ImmutableLinkedList elements;
-    private TrieIterator iterator;
 
     public Queue() {
         size = 0;
         elements = new ImmutableLinkedList();
-        iterator = new TrieIterator(this);
     }
 
     public Queue(Object[] arr) {
@@ -48,8 +44,4 @@ public class Queue implements Iterable<String> {
         return elements.toArray();
     }
 
-    @Override
-    public Iterator<String> iterator() {
-        return iterator;
-    }
 }

@@ -1,6 +1,6 @@
 package ua.edu.ucu.tries;
 
-import ua.edu.ucu.utils.collections.Queue;
+import ua.edu.ucu.tries.TrieQueue;;
 
 public class RWayTrie implements Trie {
 
@@ -92,12 +92,12 @@ public class RWayTrie implements Trie {
 
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
-        Queue q = new Queue();
+        TrieQueue q = new TrieQueue();
         collect(get(root, s, 0), s, q);
         return q;
     }
 
-    private void collect(Node x, String s, Queue q) {
+    private void collect(Node x, String s, TrieQueue q) {
         if (x == null)
             return;
         if (x.value != null)
