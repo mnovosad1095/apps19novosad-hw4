@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import ua.edu.ucu.tries.RWayTrie;
 import ua.edu.ucu.tries.Trie;
-import ua.edu.ucu.tries.Tuple;;
+import ua.edu.ucu.tries.Tuple;
 
 /**
  *
@@ -29,8 +29,9 @@ public class PrefixMatches {
         for (String string : strings) {
             String[] s = string.split("\\s+");
             for (String str : s) {
-                if (!trie.contains(str))
+                if (!trie.contains(str)) {
                     trie.add(new Tuple(str, str.length()));
+                }
             }
         }
 
@@ -38,7 +39,7 @@ public class PrefixMatches {
     }
 
     public boolean contains(String word) {
-        if (word == null) throw new IllegalArgumentException();
+        if (word == null) { throw new IllegalArgumentException(); } 
         return trie.contains(word);
     }
 
@@ -57,6 +58,7 @@ public class PrefixMatches {
 
         ArrayList<String> words = new ArrayList<String>();
         ArrayList<String> res = new ArrayList<String>();
+        int length = k;
         int i = 0;
         String currWord;
         String newWord;
@@ -66,11 +68,11 @@ public class PrefixMatches {
         }
         Collections.sort(words, new MyComparator());
 
-        while (k != 0) {
+        while (length != 0) {
             currWord = words.get(i);
             res.add(currWord);
             newWord = words.get(i + 1);
-            if (newWord.length() > currWord.length()) k--;
+            if (newWord.length() > currWord.length()) { length--; };
             i++;
         }
 

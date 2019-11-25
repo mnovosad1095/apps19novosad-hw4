@@ -1,6 +1,7 @@
 package ua.edu.ucu.tries;
 
-import ua.edu.ucu.tries.TrieQueue;;
+import ua.edu.ucu.tries.TrieQueue;
+import ua.edu.ucu.utils.collections.Queue;;
 
 public class RWayTrie implements Trie {
 
@@ -41,8 +42,9 @@ public class RWayTrie implements Trie {
     }
 
     private Node get(Node x, String key, int d) {
-        if (x == null)
+        if (x == null) {
             return null;
+        }
         if (d == key.length())
             return x;
         char c = key.charAt(d);
@@ -58,15 +60,17 @@ public class RWayTrie implements Trie {
     @Override
     public boolean delete(String word) {
         root = delete(root, word, 0);
-        if (root == null)
+        if (root == null) {
             return false;
+        }
         size--;
         return true;
     }
 
     private Node delete(Node x, String key, int d) {
-        if (x == null)
+        if (x == null) {
             return null;
+        }
         if (d == key.length()) {
             x.value = null;
         } else {
@@ -74,12 +78,14 @@ public class RWayTrie implements Trie {
             x.next[c] = delete(x.next[c], key, d + 1);
         }
 
-        if (x.value != null)
+        if (x.value != null) {
             return x;
+        }
 
         for (char c = 0; c < R; c++) {
-            if (x.next[c] != null)
-                return x;
+            if (x.next[c] != null) {
+                return x; 
+            }
         }
 
         return null;
@@ -97,13 +103,32 @@ public class RWayTrie implements Trie {
         return q;
     }
 
-    private void collect(Node x, String s, TrieQueue q) {
-        if (x == null)
-            return;
-        if (x.value != null)
-            q.enqueue(s);
-        for (char c = 0; c < R; c++)
-            collect(x.next[c], s + c, q);
+    private void collect(Node x, String s, TrieQueue words) {
+        // if (x == null)
+        //     return;
+        // if (x.value != null)
+        //     q.enqueue(s);
+        // for (char c = 0; c < R; c++)x
+        //     collect(x.next[c], s + c, q);
+        Queue queue = new Queue();
+        Node nd;
+        queue.enqueue(x);
+        
+
+        while (queue.peek() != null) {
+            nd = (Node) queue.dequeue();
+
+            if (nd.value != null) {
+                words.enqueue(nd.value.getTerm());
+            }
+            if (nd != null) {
+                System.out.println(nd.next.length);
+                for (Node node : nd.next) {
+                    
+                    if (node != null) {queue.enqueue(node);}
+                }
+            }
+        }
     }
 
     @Override
